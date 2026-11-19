@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_csi.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bbaha <bbaha@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/19 00:55:12 by bbaha             #+#    #+#             */
+/*   Updated: 2026/11/19 02:51:50 by bbaha            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	ft_putchar(char c)
@@ -5,7 +17,7 @@ int	ft_putchar(char c)
 	return (write(1, &c, 1));
 }
 
-int ft_putstr(char *str)
+int	ft_putstr(char *str)
 {
 	int	size;
 	int	n;
@@ -41,7 +53,7 @@ int	ft_putnbr(long nb)
 	{
 		nb = -nb;
 		if (ft_putchar('-') < 0)
-		return (-1);
+			return (-1);
 		size++;
 	}
 	size += count_nbr(nb);
@@ -53,7 +65,7 @@ int	ft_putnbr(long nb)
 	return (size);
 }
 
-int	ft_putunbr(unsigned nb)
+int	ft_putunbr(unsigned int nb)
 {
 	char	c;
 	int		size;

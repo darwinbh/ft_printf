@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_xp.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bbaha <bbaha@student.1337.ma>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/19 00:56:07 by bbaha             #+#    #+#             */
+/*   Updated: 2026/11/19 02:50:04 by bbaha            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	len(char *base)
@@ -8,10 +20,10 @@ int	len(char *base)
 }
 
 int	ft_putnbr_base(unsigned long nb, char *base)
-{ 
-	int     bs;
-	int     size;
-	int     n;
+{
+	int	bs;
+	int	size;
+	int	n;
 
 	bs = len(base);
 	size = 1;
@@ -21,16 +33,16 @@ int	ft_putnbr_base(unsigned long nb, char *base)
 		if (size <= 0)
 			return (-1);
 	}
-
 	n = ft_putchar(base[nb % bs]);
-			if (n < 0)
-				return (-1);
+	if (n < 0)
+		return (-1);
 	return (size);
 }
 
 int	ft_putptr(void *ptr)
 {
-	int size;
+	int	size;
+
 	size = 0;
 	if (!ptr)
 		return (ft_putstr("(nil)"));
