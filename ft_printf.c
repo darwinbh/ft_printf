@@ -6,7 +6,7 @@
 /*   By: bbaha <bbaha@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 00:46:42 by bbaha             #+#    #+#             */
-/*   Updated: 2026/11/19 03:17:21 by bbaha            ###   ########.fr       */
+/*   Updated: 2026/11/20 05:57:39 by bbaha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,30 @@
 
 int	form(const char *format, va_list args)
 {
-	int	size;
-
-	size = 0;
 	if (*format == 'd' || *format == 'i')
-		size += ft_putnbr(va_arg(args, int));
+		return (ft_putnbr(va_arg(args, int)));
 	else if (*format == 's')
-		size += ft_putstr(va_arg(args, char *));
+		return (ft_putstr(va_arg(args, char *)));
 	else if (*format == 'c')
-		size += ft_putchar(va_arg(args, int));
+		return (ft_putchar(va_arg(args, int)));
 	else if (*format == 'u')
-		size += ft_putunbr(va_arg(args, unsigned long));
+		return (ft_putunbr(va_arg(args, unsigned int)));
 	else if (*format == 'x')
-		size += ft_putnbr_base(va_arg(args, long), "0123456789abcdef");
+		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789abcdef"));
 	else if (*format == 'X')
-		size += ft_putnbr_base(va_arg(args, long), "0123456789ABCDEF");
+		return (ft_putnbr_base(va_arg(args, unsigned int), "0123456789ABCDEF"));
 	else if (*format == 'p')
-		size += ft_putptr(va_arg(args, void *));
+		return (ft_putptr(va_arg(args, void *)));
+	else if (*format == '\0')
+		return (-1);
 	else if (*format == '%')
-		size += write(1, format, 1);
-	return (size);
+		return (write(1, format, 1));
+	else
+	{
+		if ((write(1, "%", 1) == -1) || (write(1, format, 1) == -1))
+			return (-1);
+		return (2);
+	}
 }
 
 int	ft_printf(const char *format, ...)
@@ -44,22 +48,20 @@ int	ft_printf(const char *format, ...)
 
 	size = 0;
 	va_start(args, format);
+	n = 0;
 	while (*format)
 	{
 		if (*format == '%')
-		{
-			size += form(++format, args);
-			format++;
-		}
+			n = form(++format, args);
 		else
-		{
 			n = write(1, format, 1);
-			if (n < 0)
-				return (-1);
-			size -= n;
-			format++;
-		}
+		if (n == -1)
+			break ;
+		size += n;
+		format++;
 	}
 	va_end(args);
+	if (n == -1)
+		return (n);
 	return (size);
 }

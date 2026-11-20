@@ -6,7 +6,7 @@
 /*   By: bbaha <bbaha@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/19 00:56:07 by bbaha             #+#    #+#             */
-/*   Updated: 2026/11/19 02:50:04 by bbaha            ###   ########.fr       */
+/*   Updated: 2026/11/19 03:58:06 by bbaha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	len(char *base)
 	return (0);
 }
 
-int	ft_putnbr_base(unsigned long nb, char *base)
+int	ft_putnbr_base(long nb, char *base)
 {
 	int	bs;
 	int	size;
@@ -27,7 +27,7 @@ int	ft_putnbr_base(unsigned long nb, char *base)
 
 	bs = len(base);
 	size = 1;
-	if ((unsigned long)bs <= nb)
+	if (( long)bs <= nb)
 	{
 		size = 1 + ft_putnbr_base(nb / bs, base);
 		if (size <= 0)
@@ -49,7 +49,7 @@ int	ft_putptr(void *ptr)
 	size += ft_putstr("0x");
 	if (size <= 0)
 		return (-1);
-	size += ft_putnbr_base((unsigned long)ptr, "0123456789abcdef");
+	size += ft_putnbr_base(( long)ptr, "0123456789abcdef");
 	if (size <= 2)
 		return (-1);
 	return (size);
